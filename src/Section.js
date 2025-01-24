@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid2, Button, CircularProgress, Typography } from "@mui/material";
+import { Grid, Button, CircularProgress, Typography } from "@mui/material";
 import CustomCard from "./cardComp.js";
 
 function Section({ heading, apiUrl }) {
@@ -17,7 +17,7 @@ function Section({ heading, apiUrl }) {
         return response.json();
       })
       .then((result) => {
-        setApidata(result); 
+        setApidata(result);
         setLoading(false);
       })
       .catch((error) => {
@@ -38,36 +38,31 @@ function Section({ heading, apiUrl }) {
 
   return (
     <div style={{ position: "relative" }}>
-      {/* Display the dynamic heading */}
       <Typography variant="h4" style={{ position: "absolute", top: 20, left: 20, color: "white" }}>
         {heading}
       </Typography>
 
-      {/* Button to toggle show all/collapse */}
       <div style={{ position: "absolute", top: 20, right: 20 }}>
-        {showAll ? (
-          <Button variant="contained" color="primary" onClick={() => setShowAll(false)}>
-            Collapse
-          </Button>
-        ) : (
-          <Button variant="contained" color="primary" onClick={() => setShowAll(true)}>
-            Show All
-          </Button>
-        )}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => setShowAll(!showAll)}  // Toggle showAll on button click
+        >
+          {showAll ? "Collapse" : "Show All"}  {/* Button text changes based on showAll state */}
+        </Button>
       </div>
 
-      {/* Render albums */}
-      <Grid2 container spacing={2} justifyContent="center" bgcolor={"black"} style={{ paddingTop: "60px" }}>
+      <Grid container spacing={2} justifyContent="center" bgcolor={"black"} style={{ paddingTop: "60px" }}>
         {albumsToShow.map((item) => (
-          <Grid2 item xs={2.4} key={item.id} marginTop={7}>
+          <Grid item xs={2.4} key={item.id} marginTop={7}>
             <CustomCard
               image={item.image || "defaultImagePath.jpg"}
               title={item.title}
               follows={item.follows}
             />
-          </Grid2>
+          </Grid>
         ))}
-      </Grid2>
+      </Grid>
     </div>
   );
 }
