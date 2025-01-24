@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Search.module.css";
-import { ReactComponent as SearchIcon } from "./Searchicon.svg"; // Ensure this path is correct
+import { ReactComponent as SearchIcon } from "./Searchicon.svg"; 
 import { Autocomplete, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 

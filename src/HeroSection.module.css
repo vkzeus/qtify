@@ -1,16 +1,16 @@
 .hero {
     display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
-    height: 100vh; /* Full viewport height */
-    background-color: #000; /* Optional: Adjust background */
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    background-color: #000; 
   }
   
   .hero-image {
-    max-width: 80%; /* Adjust the size as needed */
-    max-height: 80%; /* Ensure it fits within the container */
-    object-fit: contain; /* Scales image while maintaining aspect ratio */
-    transition: transform 0.3s ease; /* Smooth scaling effect */
+    max-width: 80%; 
+    max-height: 80%;
+    object-fit: contain;
+    transition: transform 0.3s ease; 
   }
   h1{
     color: white;

@@ -8,7 +8,7 @@ function Section({ heading, apiUrl }) {
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    // Fetch data from the passed API URL
+    
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -54,9 +54,9 @@ function Section({ heading, apiUrl }) {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => setShowAll(!showAll)} // Toggle showAll on button click
+          onClick={() => setShowAll(!showAll)} 
         >
-          {showAll ? "Collapse" : "Show All"} {/* Button text changes based on showAll state */}
+          {showAll ? "Collapse" : "Show All"} 
         </Button>
       </div>
 
@@ -70,7 +70,7 @@ function Section({ heading, apiUrl }) {
         {itemsToDisplay.map((item, index) => (
           <Grid
             item
-            xs={showAll ? 2.4 : 1.714} // Dynamically adjust item width based on showAll state
+            xs={showAll ? 2.4 : 1.714}
             key={item.id || index}
           >
             <CustomCard

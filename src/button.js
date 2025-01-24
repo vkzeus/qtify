@@ -1,20 +1,20 @@
 import React from "react";
 
 const Button = ({  onClick, children }) => {
-  // Define inline styles
+ 
   const buttonStyle = {
-    backgroundColor: "#000000", // Replace with the black color from Figma
-    color: "#00ff00", // Replace with the green color from Figma
-    fontFamily: "'Poppins', sans-serif", // Ensure Poppins font is loaded
+    backgroundColor: "#000000", 
+    color: "#00ff00", 
+    fontFamily: "'Poppins', sans-serif", 
     fontSize: "16px",
     padding: "10px 20px",
     border: "2px solid #00ff00",
-    borderRadius: "10px", // Adjust as per design
+    borderRadius: "10px", 
     cursor: "pointer",
-    display: "flex", // Ensure the icon and text are aligned properly
+    display: "flex", 
     alignItems: "center",
     justifyContent: "center",
-    gap: "8px", // Add spacing between the icon and text
+    gap: "8px", 
     transition: "transform 0.2s ease, box-shadow 0.2s ease",
   };
 
@@ -32,7 +32,7 @@ const Button = ({  onClick, children }) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
-      {children} {/* Render children, e.g., icons */}
+      {children} 
      
     </button>
   );

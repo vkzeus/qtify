@@ -8,10 +8,10 @@ function CustomCard({ image, title, follows }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "8px", // Space between the card and the title
+        gap: "8px", 
       }}
     >
-      {/* Card Component */}
+     
       <Card
         sx={{
           width: "150px",
@@ -23,7 +23,7 @@ function CustomCard({ image, title, follows }) {
           boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
         }}
       >
-        {/* Card Media */}
+   
         <CardMedia
           component="img"
           image={image}
@@ -35,9 +35,9 @@ function CustomCard({ image, title, follows }) {
           }}
         />
 
-        {/* Content Section */}
+    
         <CardContent sx={{ padding: "8px 12px", textAlign: "center", position: "relative" }}>
-          {/* Follows Chip */}
+          
           <Box
             sx={{
               display: "flex",
@@ -62,14 +62,13 @@ function CustomCard({ image, title, follows }) {
         </CardContent>
       </Card>
 
-      {/* Title Below the Card */}
       <Typography
         variant="h6"
         fontWeight="bold"
         sx={{
           fontSize: "14px",
           textAlign: "center",
-          color: "black", // Matches the card theme
+          color: "black",
         }}
       >
         {title}
