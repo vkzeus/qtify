@@ -14,7 +14,7 @@ function CustomCard({ image, title, follows }) {
       {/* Card Component */}
       <Card
         sx={{
-          width: "250px",
+          width: "150px",
           borderRadius: 6,
           backgroundColor: "#1a202c",
           color: "white",

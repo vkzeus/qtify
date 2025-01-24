@@ -15,7 +15,7 @@ function App() {
 
   
   return (
-    <div className="App" style={{bgcolor:"black"}} >
+    <div className="App"style={{ backgroundColor: "black", minHeight: "100vh" }}>
       <BrowserRouter>
         <Navbar />
        <Hero/>

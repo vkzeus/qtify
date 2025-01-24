@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const Button = ({ text = "Give Feedback", onClick }) => {
+const Button = ({  onClick, children }) => {
   // Define inline styles
   const buttonStyle = {
     backgroundColor: "#000000", // Replace with the black color from Figma
@@ -11,6 +11,10 @@ const Button = ({ text = "Give Feedback", onClick }) => {
     border: "2px solid #00ff00",
     borderRadius: "10px", // Adjust as per design
     cursor: "pointer",
+    display: "flex", // Ensure the icon and text are aligned properly
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "8px", // Add spacing between the icon and text
     transition: "transform 0.2s ease, box-shadow 0.2s ease",
   };
 
@@ -28,7 +32,8 @@ const Button = ({ text = "Give Feedback", onClick }) => {
       onMouseLeave={() => setIsHovered(false)}
       onClick={onClick}
     >
-      {text}
+      {children} {/* Render children, e.g., icons */}
+     
     </button>
   );
 };

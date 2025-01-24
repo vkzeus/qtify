@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import styles from "./Search.module.css";
-import { ReactComponent as SearchIcon } from "./Searchicon.svg";
-import { Autocomplete, TextField, Tooltip } from '@mui/material';
-// import { truncate } from "../../helpers/helpers";
+import { ReactComponent as SearchIcon } from "./Searchicon.svg"; // Ensure this path is correct
+import { Autocomplete, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
 function Search({ searchData, placeholder }) {
-  const [value, setValue] = useState(null);  // Add state to manage selected value
+  const [value, setValue] = useState(null);
   const navigate = useNavigate();
 
   const onSubmit = (e) => {
@@ -18,61 +17,52 @@ function Search({ searchData, placeholder }) {
   };
 
   return (
-    <div className="Hero-div" style={{ position: "relative"}}>
-      <form
-        className={styles.wrapper}
-        onSubmit={onSubmit}  // Directly use the onSubmit function
-      >
-        <div>
+    <div className="Hero-div" style={{ position: "relative" }}>
+      <form className={styles.wrapper} onSubmit={onSubmit}>
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
           <Autocomplete
-           sx={{
-            width: '600px', 
-            padding:'0px',
-          }}
+            sx={{
+              width: "600px",
+            }}
             id="search-album"
             options={searchData || []}
             getOptionLabel={(option) => option.title}
-            value={value}  // Bind selected value
-            onChange={(e, newValue) => setValue(newValue)} // Handle value change
+            value={value}
+            onChange={(e, newValue) => setValue(newValue)}
             renderInput={(params) => (
               <TextField
                 {...params}
-                className={styles.search}
                 placeholder={placeholder}
                 variant="outlined"
                 required
+                InputProps={{
+                  ...params.InputProps,
+                  style: {
+                    paddingRight: "48px", 
+                    backgroundColor:"white"
+                  },
+                }}
               />
             )}
             isOptionEqualToValue={(option, value) => option.slug === value.slug}
             disableClearable
             ListboxComponent="ul"
-            renderOption={(props, option) => {
-              const artists = option.songs.reduce((accumulator, currentValue) => {
-                accumulator.push(...currentValue.artists);
-                return accumulator;
-              }, []);
-              
-              return (
-                <li {...props} className={styles.listElement}>
-                  <div>
-                    <p className={styles.albumTitle}>{option.title}</p>
-                    <p className={styles.albumArtists}>
-                      {/* {truncate(artists.join(", "), 40)} */}
-                    </p>
-                  </div>
-                </li>
-              );
-            }}
-            noOptionsText="No albums found"
-            renderEndAdornment={() => (
-              
-                <button type="submit"  className={styles.searchButton}>
-                  <SearchIcon className={styles.searchIcon} />
-                  
-                </button>
-             
-            )}
           />
+
+          
+          <button
+            type="submit"
+            style={{
+              background: "transparent",
+              height:'auto',
+              border: "none",
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <SearchIcon style={{ width: "24px", height: "24px", fill: "#00ff00" }} />
+          </button>
         </div>
       </form>
     </div>

@@ -3,7 +3,7 @@ import { Grid, Button, CircularProgress, Typography } from "@mui/material";
 import CustomCard from "./cardComp.js";
 
 function Section({ heading, apiUrl }) {
-  const [apiData, setApidata] = useState([]);
+  const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
 
@@ -17,7 +17,7 @@ function Section({ heading, apiUrl }) {
         return response.json();
       })
       .then((result) => {
-        setApidata(result);
+        setApiData(result);
         setLoading(false);
       })
       .catch((error) => {
@@ -25,8 +25,6 @@ function Section({ heading, apiUrl }) {
         setLoading(false);
       });
   }, [apiUrl]);
-
-  const albumsToShow = showAll ? apiData.slice(0, 10) : apiData.slice(0, 5);
 
   if (loading) {
     return (
@@ -36,9 +34,19 @@ function Section({ heading, apiUrl }) {
     );
   }
 
+  const itemsToDisplay = showAll ? apiData.slice(0, 10) : apiData.slice(0, 7);
+
   return (
-    <div style={{ position: "relative" }}>
-      <Typography variant="h4" style={{ position: "absolute", top: 20, left: 20, color: "white" }}>
+    <div style={{ position: "relative", padding: "20px" }}>
+      <Typography
+        variant="h4"
+        style={{
+          position: "absolute",
+          top: 20,
+          left: 20,
+          color: "white",
+        }}
+      >
         {heading}
       </Typography>
 
@@ -46,15 +54,25 @@ function Section({ heading, apiUrl }) {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => setShowAll(!showAll)}  // Toggle showAll on button click
+          onClick={() => setShowAll(!showAll)} // Toggle showAll on button click
         >
-          {showAll ? "Collapse" : "Show All"}  {/* Button text changes based on showAll state */}
+          {showAll ? "Collapse" : "Show All"} {/* Button text changes based on showAll state */}
         </Button>
       </div>
 
-      <Grid container spacing={2} justifyContent="center" bgcolor={"black"} style={{ paddingTop: "60px" }}>
-        {albumsToShow.map((item) => (
-          <Grid item xs={2.4} key={item.id} marginTop={7}>
+      <Grid
+        container
+        spacing={2}
+        justifyContent="center"
+        bgcolor={"black"}
+        style={{ paddingTop: "60px" }}
+      >
+        {itemsToDisplay.map((item, index) => (
+          <Grid
+            item
+            xs={showAll ? 2.4 : 1.714} // Dynamically adjust item width based on showAll state
+            key={item.id || index}
+          >
             <CustomCard
               image={item.image || "defaultImagePath.jpg"}
               title={item.title}
