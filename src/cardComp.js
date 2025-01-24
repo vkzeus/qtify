@@ -36,7 +36,7 @@ function CustomCard({ image, title, follows }) {
         />
 
     
-        <CardContent sx={{ padding: "8px 12px", textAlign: "center", position: "relative" }}>
+        <CardContent sx={{ padding: "8px 12px", textAlign: "center", position: "relative",bgcolor:"white" }}>
           
           <Box
             sx={{
@@ -68,7 +68,7 @@ function CustomCard({ image, title, follows }) {
         sx={{
           fontSize: "14px",
           textAlign: "center",
-          color: "black",
+          color: "white",
         }}
       >
         {title}

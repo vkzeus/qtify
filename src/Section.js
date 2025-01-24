@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Button, CircularProgress, Typography } from "@mui/material";
+import { Grid, Button, CircularProgress, Typography, IconButton } from "@mui/material";
 import CustomCard from "./cardComp.js";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 function Section({ heading, apiUrl }) {
   const [apiData, setApiData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    
     fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
@@ -34,7 +36,19 @@ function Section({ heading, apiUrl }) {
     );
   }
 
-  const itemsToDisplay = showAll ? apiData.slice(0, 10) : apiData.slice(0, 7);
+  const itemsToDisplay = showAll ? apiData : apiData.slice(currentIndex, currentIndex + 7);
+
+  const handleNext = () => {
+    if (currentIndex + 7 < apiData.length) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
 
   return (
     <div style={{ position: "relative", padding: "20px" }}>
@@ -50,13 +64,24 @@ function Section({ heading, apiUrl }) {
         {heading}
       </Typography>
 
-      <div style={{ position: "absolute", top: 20, right: 20 }}>
+      {/* Show All / Collapse Button */}
+      <div
+        style={{
+          position: "absolute",
+          top: 20,
+          right: 20,
+          zIndex: 10, // Ensure button stays on top
+        }}
+      >
         <Button
           variant="contained"
           color="primary"
-          onClick={() => setShowAll(!showAll)} 
+          onClick={() => {
+            setShowAll(!showAll);
+            setCurrentIndex(0); // Reset slider when toggling
+          }}
         >
-          {showAll ? "Collapse" : "Show All"} 
+          {showAll ? "Collapse" : "Show All"}
         </Button>
       </div>
 
@@ -65,12 +90,30 @@ function Section({ heading, apiUrl }) {
         spacing={2}
         justifyContent="center"
         bgcolor={"black"}
-        style={{ paddingTop: "60px" }}
+        style={{ paddingTop: "60px", position: "relative" }}
       >
+        {/* Left Arrow */}
+        {!showAll && currentIndex > 0 && (
+          <IconButton
+            onClick={handlePrev}
+            style={{
+              position: "absolute",
+              left: 10,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "white",
+              zIndex: 1,
+            }}
+          >
+            <ArrowBackIosIcon />
+          </IconButton>
+        )}
+
+        {/* Cards */}
         {itemsToDisplay.map((item, index) => (
           <Grid
             item
-            xs={showAll ? 2.4 : 1.714}
+            xs={1.714}
             key={item.id || index}
           >
             <CustomCard
@@ -80,6 +123,23 @@ function Section({ heading, apiUrl }) {
             />
           </Grid>
         ))}
+
+        {/* Right Arrow */}
+        {!showAll && currentIndex + 7 < apiData.length && (
+          <IconButton
+            onClick={handleNext}
+            style={{
+              position: "absolute",
+              right: 10,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "white",
+              zIndex: 1,
+            }}
+          >
+            <ArrowForwardIosIcon />
+          </IconButton>
+        )}
       </Grid>
     </div>
   );
