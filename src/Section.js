@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Grid2, Button, CircularProgress, Typography } from "@mui/material"; // Import the necessary MUI components
 import CustomCard from "./cardComp.js";
 
-function Section({heading}) {
+function Section({heading,album}) {
   const [apiData, setApidata] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showAll, setShowAll] = useState(false); // State to toggle between showing 5 and 10 albums
 
   useEffect(() => {
-    fetch("https://qtify-backend-labs.crio.do/albums/top")
+    fetch(`https://qtify-backend-labs.crio.do/albums/${album}`)
+
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch data");

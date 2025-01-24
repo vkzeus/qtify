@@ -21,8 +21,8 @@ function App() {
        <Hero/>
        {/* <div style={{display:"flex",justifyContent:"flex-start",alignItems:"center",gap:"5px",padding:"5px",backgroundColor:"black"}}> <CustomCard/>
        <CustomCard/></div> */}
-         <Section heading="Top Albums" />
-         <Section heading="New Albums" />
+         <Section heading="Top Albums" album="top" />
+         <Section heading="New Albums" album="new" />
 
       
       </BrowserRouter>
