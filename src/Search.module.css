@@ -1,107 +1,46 @@
-/* Input Field Styles */
 .search {
     padding: 14px 20px;
     height: 100%;
-    border-radius: 24px; /* Unified rounded corners */
-    border-top-right-radius: 0px; /* Right side stays flat */
-    border-bottom-right-radius: 0px; /* Right side stays flat */
+    border-radius: 15px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
     border: 1px solid var(--color-black);
-    width: 100%; /* Make width flexible */
-    background: white;
-    outline: none;
-    font-size: 16px;
-    box-sizing: border-box;
+    width: 502px;
+    background:white;
   }
   
-  /* Wrapper for Search Input and Button */
   .wrapper {
     display: flex;
     align-items: stretch;
     height: 48px;
-    width: 100%;
-    max-width: 600px; /* Limit overall width */
-    margin: 0 auto; /* Center on page */
-    position: relative;
   }
   
-  /* Search Button Styles */
   .searchButton {
-    border-radius: 0px 24px 24px 0px; /* Rounded corners on right */
-    padding: 0; /* No extra padding */
-    width: 48px; /* Square button to match input height */
+    border-radius: 10px;
+    padding: 14px 20px;
     height: 100%;
     border: 1px solid var(--color-black);
-    border-left: none; /* Remove border overlap with input */
-    background: var(--color-primary, #f8f8f8); /* Primary background color */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    border-left: none;
     cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+    height: 100%;
+    
+  }
+  .searchIcon{
+    color: black;
+    border-radius: 10px;
   }
   
-  /* Hover and Active States for Button */
-  .searchButton:hover {
-    background: var(--color-secondary, #ddd);
-  }
-  .searchButton:active {
-    transform: scale(0.95);
-  }
-  
-  /* Search Icon Styles */
-  .searchIcon {
-    width: 20px;
-    height: 20px;
-    fill: var(--color-black, #000); /* Use variable for color */
-  }
-  
-  /* Dropdown List Styles */
   .listElement {
     padding: 15px;
     display: flex;
     justify-content: space-between;
-    background: white;
-    border-bottom: 1px solid var(--color-gray, #ccc);
-    cursor: pointer;
   }
   
-  .listElement:hover {
-    background: var(--color-secondary, #f0f0f0);
-  }
-  
-  /* Album Title Styling */
   .albumTitle {
     font-size: 16px;
-    font-weight: bold;
-    margin: 0;
   }
   
-  /* Album Artists Styling */
   .albumArtists {
     font-size: 12px;
-    color: var(--color-gray-dark, #666);
-    margin: 0;
   }
-  
-  /* Responsive Adjustments */
-  @media (max-width: 768px) {
-    .wrapper {
-      max-width: 100%;
-      height: 40px;
-    }
-  
-    .search {
-      font-size: 14px;
-      padding: 10px 16px;
-    }
-  
-    .searchButton {
-      width: 40px;
-    }
-  
-    .searchIcon {
-      width: 16px;
-      height: 16px;
-    }
-  }
-  
+ 
