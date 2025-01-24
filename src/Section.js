@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Grid2, Button, CircularProgress, Typography } from "@mui/material"; // Import the necessary MUI components
+import { Grid2, Button, CircularProgress, Typography } from "@mui/material";
 import CustomCard from "./cardComp.js";
 
-function Section({heading,album}) {
+function Section({ heading, apiUrl }) {
   const [apiData, setApidata] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showAll, setShowAll] = useState(false); // State to toggle between showing 5 and 10 albums
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    fetch(`https://qtify-backend-labs.crio.do/albums/${album}`)
-
+    // Fetch data from the passed API URL
+    fetch(apiUrl)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch data");
@@ -17,16 +17,16 @@ function Section({heading,album}) {
         return response.json();
       })
       .then((result) => {
-        setApidata(result);
+        setApidata(result); 
         setLoading(false);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
         setLoading(false);
       });
-  }, []);
+  }, [apiUrl]);
 
-  const albumsToShow = showAll ? apiData.slice(0, 10) : apiData.slice(0, 5); // Determine which albums to show based on `showAll`
+  const albumsToShow = showAll ? apiData.slice(0, 10) : apiData.slice(0, 5);
 
   if (loading) {
     return (
@@ -38,12 +38,12 @@ function Section({heading,album}) {
 
   return (
     <div style={{ position: "relative" }}>
-      {/* "Top Albums" heading */}
+      {/* Display the dynamic heading */}
       <Typography variant="h4" style={{ position: "absolute", top: 20, left: 20, color: "white" }}>
         {heading}
       </Typography>
 
-      {/* Button placed at the top-right corner */}
+      {/* Button to toggle show all/collapse */}
       <div style={{ position: "absolute", top: 20, right: 20 }}>
         {showAll ? (
           <Button variant="contained" color="primary" onClick={() => setShowAll(false)}>
@@ -56,11 +56,12 @@ function Section({heading,album}) {
         )}
       </div>
 
+      {/* Render albums */}
       <Grid2 container spacing={2} justifyContent="center" bgcolor={"black"} style={{ paddingTop: "60px" }}>
         {albumsToShow.map((item) => (
           <Grid2 item xs={2.4} key={item.id} marginTop={7}>
             <CustomCard
-              image={item.image || "defaultImagePath.jpg"} // Fallback image if `item.image` is undefined
+              image={item.image || "defaultImagePath.jpg"}
               title={item.title}
               follows={item.follows}
             />
