@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Button, CircularProgress, Typography, IconButton } from "@mui/material";
+import { Grid, Button, Typography, IconButton } from "@mui/material";
 import CustomCard from "./cardComp.js";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import CircularProgress from "@mui/material/CircularProgress";
+
 
 function Section({ heading, apiUrl }) {
   const [apiData, setApiData] = useState([]);
@@ -28,6 +30,25 @@ function Section({ heading, apiUrl }) {
       });
   }, [apiUrl]);
 
+  const itemsPerPage = 7; // Number of cards to show at a time
+  const totalItems = apiData.length;
+
+  const handleNext = () => {
+    if (currentIndex + itemsPerPage < totalItems) {
+      setCurrentIndex((prev) => prev + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex((prev) => prev - 1);
+    }
+  };
+
+  const itemsToDisplay = showAll
+    ? apiData
+    : apiData.slice(currentIndex, currentIndex + itemsPerPage);
+
   if (loading) {
     return (
       <div style={{ textAlign: "center", paddingTop: "50px" }}>
@@ -35,20 +56,6 @@ function Section({ heading, apiUrl }) {
       </div>
     );
   }
-
-  const itemsToDisplay = showAll ? apiData : apiData.slice(currentIndex, currentIndex + 7);
-
-  const handleNext = () => {
-    if (currentIndex + 7 < apiData.length) {
-      setCurrentIndex(currentIndex + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (currentIndex > 0) {
-      setCurrentIndex(currentIndex - 1);
-    }
-  };
 
   return (
     <div style={{ position: "relative", padding: "20px" }}>
@@ -78,7 +85,7 @@ function Section({ heading, apiUrl }) {
           color="primary"
           onClick={() => {
             setShowAll(!showAll);
-            setCurrentIndex(0); // Reset slider when toggling
+            setCurrentIndex(0); // Reset index when toggling
           }}
         >
           {showAll ? "Collapse" : "Show All"}
@@ -95,6 +102,7 @@ function Section({ heading, apiUrl }) {
         {/* Left Arrow */}
         {!showAll && currentIndex > 0 && (
           <IconButton
+            data-testid="slider-prev"
             onClick={handlePrev}
             style={{
               position: "absolute",
@@ -114,7 +122,8 @@ function Section({ heading, apiUrl }) {
           <Grid
             item
             xs={1.714}
-            key={item.id || index}
+            key={item.id || `${item.title}-${index}`} // Ensure a stable key
+            data-testid="album-card"
           >
             <CustomCard
               image={item.image || "defaultImagePath.jpg"}
@@ -125,8 +134,9 @@ function Section({ heading, apiUrl }) {
         ))}
 
         {/* Right Arrow */}
-        {!showAll && currentIndex + 7 < apiData.length && (
+        {!showAll && currentIndex + itemsPerPage < totalItems && (
           <IconButton
+            data-testid="slider-next"
             onClick={handleNext}
             style={{
               position: "absolute",
